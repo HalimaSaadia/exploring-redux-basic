@@ -1,17 +1,23 @@
 import { AddTaskModal } from "@/components/module/tasks/AddTaskModal";
 import TaskCard from "@/components/module/tasks/TaskCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { selectTask, updateFilter } from "@/redux/features/task/task";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useGetTasksQuery } from "@/redux/api/baseApi";
+// import { selectTask, updateFilter } from "@/redux/features/task/task";
+// import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const Task = () => {
-  const tasks = useAppSelector(selectTask);
-  const dispatch = useAppDispatch();
+  // const tasks = useAppSelector(selectTask);
+  // const dispatch = useAppDispatch();
+
+  const {data, isLoading, isError} = useGetTasksQuery(undefined)
+  // const {tasks} = data
+  console.log(data)
+ 
 
   return (
     <div className="p-5 max-w-2xl mx-auto">
       <div className="flex justify-end gap-2 py-2">
-        <Tabs defaultValue="all">
+        {/* <Tabs defaultValue="all">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger
               onClick={() => dispatch(updateFilter("all"))}
@@ -38,11 +44,11 @@ const Task = () => {
               High
             </TabsTrigger>
           </TabsList>
-        </Tabs>
+        </Tabs> */}
         <AddTaskModal />
       </div>
       <div className="">
-        {tasks.map((task, idx) => (
+        {data?.tasks.map((task, idx) => (
           <TaskCard key={idx} task={task} />
         ))}
       </div>

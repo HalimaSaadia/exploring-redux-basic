@@ -17,7 +17,11 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -27,23 +31,25 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { addTask } from "@/redux/features/task/task";
-import { useAppDispatch } from "@/redux/hooks";
+import { usePostTaskMutation } from "@/redux/api/baseApi";
+
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
-
 export function AddTaskModal() {
-  const form = useForm();
-  const dispatch = useAppDispatch()
-  const onsubmit = (data) => {
+  const form = useForm()
+  const [addTask, { isLoading, data, isError }] = usePostTaskMutation();
+ 
 
+  const onsubmit = (data) => {
     const payload = {
       ...data,
-      dueDate : format(data.dueDate, "PPP")
-    }
-    dispatch(addTask(payload))
+      isCompleted: false,
+      dueDate: format(data.dueDate, "PPP"),
+    };
+    addTask(payload);
+    form.reset()
   };
   return (
     <Dialog>

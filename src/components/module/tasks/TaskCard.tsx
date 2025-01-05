@@ -16,8 +16,8 @@ import { Trash2Icon } from "lucide-react";
 
 const TaskCard = ({ task }) => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector(selectUsers);
-  const assignedUser = users.find((user) => user.id === task.assignedTo);
+  // const users = useAppSelector(selectUsers);
+  // const assignedUser = users.find((user) => user.id === task.assignedTo);
 
 
   return (
@@ -57,7 +57,7 @@ const TaskCard = ({ task }) => {
         </div>
         <div className="py-3">
           <p>{task.description}</p>
-          {assignedUser && <p className="text-gray-400 font-semibold">Assigned To - {assignedUser.name}</p>}
+          {/* {assignedUser && <p className="text-gray-400 font-semibold">Assigned To - {assignedUser.name}</p>} */}
         </div>
       </CardContent>
       <CardFooter className="flex justify-between"></CardFooter>
